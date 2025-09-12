@@ -1,0 +1,11 @@
+# git
+.git
+.gitignore
+
+# dependencies
+node_modules
+.nuxt
+.output
+
+# misc
+.DS_Store
