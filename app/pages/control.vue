@@ -63,17 +63,17 @@
                   <input
                     v-model="project.title"
                     placeholder="Project Title"
-                    class="input-field w-full bg-neutral-800/50 border-neutral-700/50 text-white placeholder-neutral-500 p-3 rounded-lg backdrop-blur-sm transition-all duration-300 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 focus:bg-neutral-800/70"
+                    class="input-field w-full bg-neutral-800/50 border-neutral-900/50 text-white placeholder-neutral-500 p-3 rounded-lg backdrop-blur-sm transition-all duration-300 focus:border-blue-700/50 focus:ring-2 focus:ring-blue-500/20 focus:bg-neutral-800/70"
                   />
                   <input
                     v-model="project.description"
                     placeholder="Description"
-                    class="input-field w-full bg-neutral-800/50 border-neutral-700/50 text-white placeholder-neutral-500 p-3 rounded-lg backdrop-blur-sm transition-all duration-300 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 focus:bg-neutral-800/70"
+                    class="input-field w-full bg-neutral-800/50 border-neutral-900/50 text-white placeholder-neutral-500 p-3 rounded-lg backdrop-blur-sm transition-all duration-300 focus:border-blue-700/50 focus:ring-2 focus:ring-blue-500/20 focus:bg-neutral-800/70"
                   />
                   <input
                     v-model="project.url"
                     placeholder="Project URL"
-                    class="input-field w-full bg-neutral-800/50 border-neutral-700/50 text-white placeholder-neutral-500 p-3 rounded-lg backdrop-blur-sm transition-all duration-300 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 focus:bg-neutral-800/70"
+                    class="input-field w-full bg-neutral-800/50 border-neutral-900/50 text-white placeholder-neutral-500 p-3 rounded-lg backdrop-blur-sm transition-all duration-300 focus:border-blue-700/50 focus:ring-2 focus:ring-blue-500/20 focus:bg-neutral-800/70"
                   />
                   <label
                     class="flex items-center space-x-3 text-neutral-300 cursor-pointer group-hover:text-white transition-colors duration-300"
