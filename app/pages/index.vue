@@ -11,18 +11,25 @@
       class="absolute inset-0 flex items-center justify-center pointer-events-auto"
     >
       <div
-        class="bg-[#111] text-black p-8 rounded-xl border-neutral-800 border-1 shadow-lg h-[510px]"
+        class="bg-[#111] text-black p-8 rounded-xl border-neutral-800 border-1 shadow-lg h-[510px] bg-blur"
       >
         <span
           class="absolute text-neutral-500 text-2xl translate-x-[425px] translate-y-[130px] -rotate-16"
           >(„• ֊ •„)੭</span
         >
         <div class="flex space-x-4">
-          <h2
+          <div
             class="text-6xl font-bold mb-4 text-neutral-100 asimovian-regular"
           >
-            timuzkas
-          </h2>
+            <span
+  v-for="(char, i) in displayTitleChars"
+  :key="i"
+  class="inline-block transition-all duration-500 hover:scale-[1.1] hover:text-white text-shadow-white hover:text-shadow-md hover:-translate-y-2"
+>
+  {{ char }}
+</span>
+
+          </div>
           <h2 class="text-3xl mb-4 text-neutral-800 dm-mono-medium ml-[320px] mt-2">
             / fullstack dev
           </h2>
@@ -172,11 +179,11 @@
               </div>
               <!-- login button -->
               <div class="flex justify-center items-center">
-                <button
-                  class="transition-all duration-300 bg-[#111] border-2 border-neutral-700 border-dashed hover:border-solid hover:border-neutral-700 hover:bg-neutral-900 text-white rounded-lg px-4 py-2 ml-[80px] h-12 w-32 -translate-y-2 -translate-x-8"
+                <div
+                  class="px-4 py-2 ml-[80px] h-12 w-32 -translate-y-2 -translate-x-[140px]"
                 >
-                  Log In
-                </button>
+                  <LoginButton />
+                </div>
               </div>
             </div>
           </div>
@@ -194,9 +201,14 @@ const bgCanvas = ref(null);
 
 const description =
   'hey, im a fullstack dev with experience in js/ts, vue, next.js, c/c++, lua and some other things.';
+const title = "timuzkas";
 
 const originalChars = description.split('');
 const displayChars = ref([...originalChars]);
+
+const originalTitleChars = title.split('');
+const displayTitleChars = ref([...originalTitleChars]);
+
 const scrambleIntervals = new Map();
 const lingerTimeouts = new Map();
 
@@ -229,6 +241,9 @@ function stopScramble(index) {
   }, 1000); // trailing duration
   lingerTimeouts.set(index, timeoutId);
 }
+
+
+
 onMounted(() => {
   const canvas = bgCanvas.value;
   const ctx = canvas.getContext('2d');
@@ -392,6 +407,12 @@ onMounted(() => {
   width: 360px;
   height: 150px;
   border: solid #313131;
+}
+
+.bg-blur {
+    background: rgba(1, 1, 1, 0.1);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 30px rgba(255, 255, 255, 0);
 }
 
 .frosted-glass {
