@@ -6,7 +6,7 @@ export default defineEventHandler(async () => {
   const secret = authenticator.generateSecret();
   const otpauthUrl = authenticator.keyuri('admin', 'PortfolioV2', secret);
 
-  const dbPath = path.join(process.cwd(), 'app/server/db.json');
+  const dbPath = path.join(process.cwd(), 'server/db.json');
 
   try {
     await fs.access(dbPath);

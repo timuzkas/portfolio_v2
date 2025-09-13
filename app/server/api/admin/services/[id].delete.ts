@@ -4,7 +4,7 @@ import path from 'path';
 export default defineEventHandler(async (event) => {
   const serviceId = getRouterParam(event, 'id');
 
-  const dbPath = path.join(process.cwd(), 'app', 'server', 'db.json');
+  const dbPath = path.join(process.cwd(), 'server', 'db.json');
   const db = JSON.parse(await fs.readFile(dbPath, 'utf-8'));
 
   const serviceIndex = db.services.findIndex((s: any) => s.id === parseInt(serviceId as string));

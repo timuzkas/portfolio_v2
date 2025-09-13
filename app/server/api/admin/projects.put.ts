@@ -3,7 +3,7 @@ import path from 'path';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-    const dbPath = path.join(process.cwd(), 'app', 'server', 'db.json');
+    const dbPath = path.join(process.cwd(), 'server', 'db.json');
   const db = JSON.parse(await fs.readFile(dbPath, 'utf-8'));
 
   db.projects = body.projects;

@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const token = body?.token;
 
-  const dbPath = path.join(process.cwd(), 'app/server/db.json');
+  const dbPath = path.join(process.cwd(), 'server/db.json');
   let secret: string | undefined;
 
   try {
