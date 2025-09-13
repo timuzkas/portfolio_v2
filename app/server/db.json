@@ -1,3 +1,40 @@
 {
-  "totp_secret": "YOUR_TOTP_SECRET_HERE"
+  "totp_secret": "YOUR_GENERATED_TOTP_SECRET_HERE",
+  "projects": [
+    {
+      "id": 1,
+      "title": "Crystal bank",
+      "description": "Bank frontend for SPMini",
+      "url": "https://github.com/repo",
+      "main": true
+    },
+    {
+      "id": 2,
+      "title": "Project Content",
+      "description": "Simple for project as things ig",
+      "url": "https://github.com/website",
+      "main": true
+    },
+    {
+      "id": 3,
+      "title": "Project Content",
+      "description": "Simple for project as things ig",
+      "url": "https://google.com",
+      "main": false
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Cockpit ( Broken )",
+      "url": "https://control.timuzkas.xyz",
+      "icon": "🖥️"
+    },
+    {
+      "id": 2,
+      "name": "VNC Client",
+      "url": "https://timuzkas.xyz/vnc",
+      "icon": "☁️"
+    }
+  ]
 }
