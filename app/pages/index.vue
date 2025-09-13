@@ -42,20 +42,20 @@
         <div class="flex space-x-4 pt-8">
           <div class="flex flex-col space-y-4">
             <a
-              href="https://github.com/repo"
+              v-for="project in mainProjects"
+              :key="project.id"
+              :href="project.url"
               target="_blank"
               class="block"
             >
               <div
                 class="relative w-[350px] p-6 rounded-xl text-white group border-2 border-neutral-800 border-dashed project-card pointer-events-auto flex flex-col space-y-1"
               >
-                <a class="dm-mono-regular group-hover:text-lg transition-all"
-                  >Project Content</a
-                >
+                <a class="dm-mono-regular group-hover:text-lg transition-all">{{ project.title }}</a>
                 <a
                   class="dm-mono-regular group-hover:text-base transition-all text-neutral-600 text-sm w-full"
                 >
-                  Simple for project as things ig
+                  {{ project.description }}
                 </a>
 
                 <div
@@ -75,41 +75,7 @@
                 </div>
               </div>
             </a>
-            <a
-              href="https://github.com/website"
-              target="_blank"
-              class="block"
-            >
-              <div
-                class="relative w-[350px] p-6 rounded-xl text-white group border-2 border-neutral-800 border-dashed project-card pointer-events-auto flex flex-col space-y-1"
-              >
-                <a class="dm-mono-regular group-hover:text-lg transition-all"
-                  >Project Content</a
-                >
-                <a
-                  class="dm-mono-regular group-hover:text-base transition-all text-neutral-600 text-sm w-full"
-                >
-                  Simple for project as things ig
-                </a>
-
-                <div
-                  class="flex items-center justify-between space-x-2 bg-neutral-800 rounded-xl border border-neutral-800 px-4 py-2 mt-2 text-neutral-400 group transition-all"
-                >
-                  <div class="flex items-center space-x-2">
-                    <Github
-                      class="w-5 h-5 group-hover:underline transition-all"
-                    />
-                    <span class="group-hover:underline transition-all"
-                      >github.com</span
-                    >
-                  </div>
-                  <MoveUpRight
-                    class="w-4 h-4 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"
-                  />
-                </div>
-              </div>
-            </a>
-            <a href="https://google.com" target="_blank" class="block">
+            <a :href="moreProjectsUrl" target="_blank" class="block">
               <div class="flex items-center justify-center">
                 <p
                   class="text-neutral-600 hover:text-neutral-400 hover:scale-105 transition-all duration-300 relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-neutral-400 group-hover:after:w-full"
@@ -194,8 +160,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { Github, MoveUpRight, Mail, Gitlab } from 'lucide-vue-next';
+
+const { data: projects } = await useAsyncData('projects', () => $fetch('/api/projects'));
+
+const mainProjects = computed(() => (projects.value || []).filter(p => p.main));
+const moreProjectsUrl = computed(() => (projects.value || []).find(p => p.title === 'More Projects')?.url || '#');
 
 const bgCanvas = ref(null);
 
@@ -397,6 +368,7 @@ onMounted(() => {
   background-color: rgba(255, 255, 255, 0); /* transparent */
   backdrop-filter: blur(0px);
   height: 140px;
+  width: 350px;
   padding-top: 16px;
   transition: all 0.3s ease;
 }

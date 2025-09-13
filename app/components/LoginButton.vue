@@ -29,6 +29,9 @@
           <input
             v-for="n in 6"
             :key="n"
+            :ref="el => otpInputs[n - 1] = el"
+            @input="handleInput(n - 1, $event)"
+            @keydown="handleKeydown(n - 1, $event)"
             maxlength="1"
             type="text"
             inputmode="numeric"
@@ -37,6 +40,7 @@
           />
         </div>
         <button
+          @click="submitOtp"
           class="w-full mt-2 bg-neutral-900/40 hover:bg-neutral-700/40 blur-bg transition-all rounded-md py-2 border border-neutral-700"
         >
           Submit
@@ -50,16 +54,45 @@
 import { ref } from 'vue';
 
 const expanded = ref(false);
+const otpInputs = ref([]);
+const router = useRouter();
 
 function toggle(event) {
-  // Only toggle if the click is directly on the div, not its children
   if (event.target === event.currentTarget) {
     expanded.value = !expanded.value;
+    if (expanded.value) {
+      otpInputs.value[0]?.focus();
+    }
   }
 }
 
 function collapse() {
   expanded.value = false;
+}
+
+function handleInput(index, event) {
+  const nextInput = otpInputs.value[index + 1];
+  if (event.target.value && nextInput) {
+    nextInput.focus();
+  }
+}
+
+function handleKeydown(index, event) {
+  if (event.key === 'Enter' && index === 5) {
+    submitOtp();
+  }
+}
+
+async function submitOtp() {
+  const otp = otpInputs.value.map(input => input.value).join('');
+  const { success } = await $fetch('/api/login', {
+    method: 'POST',
+    body: { token: otp },
+  });
+
+  if (success) {
+    router.push('/control');
+  }
 }
 </script>
 
