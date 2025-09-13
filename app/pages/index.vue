@@ -62,12 +62,14 @@
                   class="flex items-center justify-between space-x-2 bg-neutral-800 rounded-xl border border-neutral-800 px-4 py-2 mt-2 text-neutral-400 group transition-all"
                 >
                   <div class="flex items-center space-x-2">
-                    <Github
+                    <!-- Dynamic Icon Component -->
+                    <component 
+                      :is="getProjectIcon(project.url)"
                       class="w-5 h-5 group-hover:underline transition-all"
                     />
-                    <span class="group-hover:underline transition-all"
-                      >github.com</span
-                    >
+                    <span class="group-hover:underline transition-all">
+                      {{ getProjectDomain(project.url) }}
+                    </span>
                   </div>
                   <MoveUpRight
                     class="w-4 h-4 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"
@@ -161,7 +163,7 @@
 
 <script setup>
 import { onMounted, ref, computed } from 'vue';
-import { Github, MoveUpRight, Mail, Gitlab } from 'lucide-vue-next';
+import { Github, MoveUpRight, Mail, Gitlab, Globe } from 'lucide-vue-next';
 
 const { data: projects } = await useAsyncData('projects', () => $fetch('/api/projects'));
 
@@ -182,6 +184,40 @@ const displayTitleChars = ref([...originalTitleChars]);
 
 const scrambleIntervals = new Map();
 const lingerTimeouts = new Map();
+
+// Project utility functions
+const getProjectDomain = (url) => {
+  if (!url) return 'Unknown';
+  
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname;
+  } catch (error) {
+    // If URL is invalid, try to extract domain manually
+    const match = url.match(/(?:https?:\/\/)?(?:www\.)?([^\/]+)/);
+    return match ? match[1] : 'Unknown';
+  }
+};
+
+const getProjectIcon = (url) => {
+  if (!url) return Globe;
+  
+  const domain = getProjectDomain(url).toLowerCase();
+  
+  // Check for GitHub
+  if (domain.includes('github.com') || domain.includes('github.io')) {
+    return Github;
+  }
+  
+  // Check for GitLab
+  if (domain.includes('gitlab.com') || domain.includes('gitlab.io') || domain.includes('gitlab')) {
+    return Gitlab;
+  }
+  
+  // Default to globe icon for everything else
+  return Globe;
+};
+
 
 function randomChar() {
   return String.fromCharCode(33 + Math.floor(Math.random() * 94));
